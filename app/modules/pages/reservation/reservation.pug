@@ -1,0 +1,15 @@
+#reservation  
+  .container 
+    .tenants
+      h2 Tenants list
+      .tenants-list(ng-if="tenants.length")
+        .card(ng-repeat="tenant in tenants track by $index") 
+          .info
+            h3 {{ tenant.tennantName }}
+            span {{ ctrl.formatDate(tenant.time) }}
+          .actions 
+            img.delete(src="assets/img/delete.svg" ng-click="ctrl.removeTenant(tenant)")
+      .empty-list(ng-if="tenants.length===0")
+        p There are no tenants yet.
+    .calendar-container
+      calendar(today="ctrl.today" picked-date="ctrl.pickedDate"  tenants="tenants" get-tenants="ctrl.getTenants", add-tenant="ctrl.addTenant", delete-tenant="ctrl.deleteTenant")

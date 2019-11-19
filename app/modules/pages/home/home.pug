@@ -1,0 +1,11 @@
+#home 
+  .container 
+    .tenants
+      h2 Tenants list
+      .tenants-list
+        .card(ng-repeat="tenant in ctrl.tenants track by $index") 
+          .info
+            h3 {{ tenant.tennantName }}
+            span {{ ctrl.formatDate(tenant.time) }}
+          .actions 
+            img.delete(src="assets/img/delete.svg" ng-click="ctrl.deleteTenant(tenant)")

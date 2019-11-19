@@ -1,0 +1,35 @@
+.calendar
+  .month
+    ul
+      li.prev(ng-click="_buildPreviousMonth()") &#x276E;
+      li.next(ng-click="_buildNextMonth()") &#x276F;
+      li(ng-click="_toggleMonth()", style="display: inline-block")
+        | {{ months[pickedDate.month] }}
+        br
+        span(style='font-size:18px') {{ pickedDate.year }}
+    .month-picker(ng-show="monthToggle")
+      ul 
+        li(ng-repeat="month in months track by $index" ng-click="_pickMonth($index)") {{ month }}
+  .content
+    ul.days-block(ng-repeat="(key, value) in days")
+      li.weekdays {{ key }}
+      li(ng-repeat="day in value track by $index" ng-class="{'active': day.dayNumber==today.day && today.month==pickedDate.month && today.year==pickedDate.year, 'picked': day.dayNumber==pickedDate.day, 'has-tenant': day.tenant}" ng-click="_pickDay(day)" ) {{ day.dayNumber }}
+        .tooltip(ng-if="day.tenant") {{ day.tenant }}
+
+  .reservation-container(ng-show="pickedDate.day")
+    form(name="userForm" ng-submit="submitForm()" novalidate='')
+      .new-tenant(ng-if="!pickedDate.tenant")
+        label Name: 
+        input(type='text', ng-model="name", name="name", required)
+        p.help-block(ng-show='userForm.name.$invalid && !userForm.name.$pristine') Tenant name is required.
+        p Stay Date: 
+          b {{ _formatDate((pickedDate.month+1)+'-'+pickedDate.day+'-'+pickedDate.year) }}
+        br 
+        button(ng-disabled="userForm.$invalid" type='submit', ng-click='_confirmStay()') Confirm Stay
+      .existing-tenant(ng-if="pickedDate.tenant")
+        label Name: 
+          b {{ pickedDate.tenant }}
+        p Stay Date: 
+          b {{ _formatDate((pickedDate.month+1)+'-'+pickedDate.day+'-'+pickedDate.year) }}
+        br 
+        button(type='submit', ng-click='_cancelStay()') Cancel Stay

@@ -1,0 +1,61 @@
+#home {
+  margin-top: 60px;
+
+  .container {
+    display: flex;
+    justify-content: space-between;
+
+    .tenants {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
+
+      .card {
+        background-color: white;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, .1);
+        border-left: 4px solid #20b4e4;
+        padding: 1rem 0 1rem 12px;
+        border-radius: 3px;
+        margin-bottom: 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h3 {
+          margin: 0;
+          font-weight: 400;
+          color: #333;
+        }
+
+        span {
+          font-size: 13px;
+          padding-left: 20px;
+          position: relative;
+
+          &::before {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            top: 2px;
+            left: 2px;
+            background-image: url(../../../assets/img/clock.svg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-size: cover;
+          }
+        }
+
+        .actions {
+          padding-right: 1rem;
+
+          .delete {
+            width: 35px;
+            height: auto;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
